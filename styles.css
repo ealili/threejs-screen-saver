@@ -1,7 +1,55 @@
-body {
-  width: 100vw;
-  height: 100vh;
+* {
   margin: 0;
-  background: black;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+#webgl-output {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clock {
+  opacity: 0.6;
+  height: 20vh;
+  color: white;
+  font-size: 18vh;
+  font-family: sans-serif;
+  line-height: 20.4vh;
+  display: flex;
+  position: absolute;
+  /*background: green;*/
   overflow: hidden;
+}
+
+.clock > div {
+  display: flex;
+}
+
+.tick {
+  line-height: 17vh;
+}
+
+.tick-hidden {
+  opacity: 0;
+}
+
+.move {
+  animation: move linear 1s infinite;
+}
+
+@keyframes move {
+  from {
+    transform: translateY(0vh);
+  }
+  to {
+    transform: translateY(-20vh);
+  }
 }

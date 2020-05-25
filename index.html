@@ -5,8 +5,40 @@
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <title>Three.js Realistic Rain Tutorial by Red Stapler</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
+    <div id="webgl-output">
+      <div class="clock">
+        <div class="hours">
+          <div class="first">
+            <div class="number">0</div>
+          </div>
+          <div class="second">
+            <div class="number">0</div>
+          </div>
+        </div>
+        <div class="tick">:</div>
+        <div class="minutes">
+          <div class="first">
+            <div class="number">0</div>
+          </div>
+          <div class="second">
+            <div class="number">0</div>
+          </div>
+        </div>
+        <div class="tick">:</div>
+        <div class="seconds">
+          <div class="first">
+            <div class="number">0</div>
+          </div>
+          <div class="second infinite">
+            <div class="number">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       let scene,
         camera,
@@ -44,7 +76,7 @@
         scene.fog = new THREE.FogExp2(0x11111f, 0.002);
         renderer.setClearColor(scene.fog.color);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        $("#webgl-output").append(renderer.domElement);
 
         rainGeo = new THREE.Geometry();
         for (let i = 0; i < rainCount; i++) {
@@ -117,5 +149,6 @@
       }
       init();
     </script>
+    <script src="./clock.js"></script>
   </body>
 </html>
