@@ -29,6 +29,19 @@ body {
   overflow: hidden;
 }
 
+.clock::before,
+.clock::after {
+  content: "";
+  width: 7ch;
+  height: 3vh;
+  position: absolute;
+  z-index: 2;
+}
+
+.clock::after {
+  bottom: 0;
+}
+
 .clock > div {
   display: flex;
 }
