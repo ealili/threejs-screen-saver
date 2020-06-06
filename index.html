@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
-    <title>Three.js Realistic Rain Tutorial by Red Stapler</title>
+    <title>Three.js Rain</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
@@ -89,6 +89,7 @@
           rainDrop.velocity = 0;
           rainGeo.vertices.push(rainDrop);
         }
+
         rainMaterial = new THREE.PointsMaterial({
           color: 0xaaaaaa,
           size: 0.1,
@@ -125,6 +126,17 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
           }
+          document.addEventListener("keydown", onDocumentKeyDown, false);
+          function onDocumentKeyDown(event) {
+            var keyCode = event.which;
+            if (keyCode == 40) {
+              rainCount -= 100;
+              console.log("pressed");
+            }
+            if (keyCode == 38) {
+              rainCount += 100;
+            }
+          }
         });
       }
       function animate() {
@@ -150,6 +162,7 @@
             );
           flash.power = 50 + Math.random() * 500;
         }
+
         renderer.render(scene, camera);
         requestAnimationFrame(animate);
       }
