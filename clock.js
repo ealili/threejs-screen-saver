@@ -6,8 +6,6 @@ var tickElements = Array.from(document.querySelectorAll(".tick"));
 var last = new Date(0);
 last.setUTCHours(-1);
 
-var tickState = true;
-
 function updateTime() {
   var now = new Date();
 
@@ -30,10 +28,6 @@ function updateTime() {
   }
 
   last = now;
-}
-
-function tick() {
-  tickElements.forEach((t) => t.classList.toggle("tick-hidden"));
 }
 
 function updateContainer(container, newTime) {
