@@ -40,6 +40,7 @@
     </div>
 
     <script>
+      // necessary variables
       let scene,
         camera,
         renderer,
@@ -49,33 +50,44 @@
         rainGeo,
         rainCount = 2000;
       function init() {
+        // creating the scene
         scene = new THREE.Scene();
+        // creating a perspective camera
         camera = new THREE.PerspectiveCamera(
-          60,
-          window.innerWidth / window.innerHeight,
-          1,
-          1000
+          75, // Camera frustum vertical field of view.
+          window.innerWidth / window.innerHeight, // Camera frustum aspect ratio.
+          1, // Camera frustum near plane.
+          1000 // Camera frustum far plane.
         );
-        camera.position.z = 1;
-        camera.rotation.x = 1.16;
+
+        // Positioning camera
+        camera.rotation.x = 0.8;
         camera.rotation.y = -0.12;
         camera.rotation.z = 0.27;
 
+        // Adding lights
+
+        // Ambient light which illuminates all objects in the scene from all directions
         ambient = new THREE.AmbientLight(0x555555);
         scene.add(ambient);
 
+        // Directional light which will represent the moon light in the sky.
         directionalLight = new THREE.DirectionalLight(0xffeedd);
         directionalLight.position.set(0, 0, 1);
         scene.add(directionalLight);
 
+        // Point light that gets emitted from a single point in all directions.
         flash = new THREE.PointLight(0x062d89, 30, 500, 1.7);
         flash.position.set(200, 300, 100);
         scene.add(flash);
 
-        renderer = new THREE.WebGLRenderer();
+        // set up renderer
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        // FogExp2 contains the parameters that define exponential squared fog
         scene.fog = new THREE.FogExp2(0x11111f, 0.002);
         renderer.setClearColor(scene.fog.color);
         renderer.setSize(window.innerWidth, window.innerHeight);
+
         $("#webgl-output").append(renderer.domElement);
 
         rainGeo = new THREE.Geometry();
@@ -97,22 +109,26 @@
         });
         rain = new THREE.Points(rainGeo, rainMaterial);
         scene.add(rain);
+
+        // For the cloud I will use the cloud.png file as a texture
         let loader = new THREE.TextureLoader();
-        loader.load("smoke.png", function (texture) {
-          cloudGeo = new THREE.PlaneBufferGeometry(500, 500);
+        loader.load("cloud.png", function (texture) {
+          cloudGeo = new THREE.PlaneBufferGeometry(400, 400);
           cloudMaterial = new THREE.MeshLambertMaterial({
             map: texture,
             transparent: true,
           });
 
+          // Add cloud
           for (let p = 0; p < 25; p++) {
             let cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+            // Positioning the cloud randomly, setting rotation and adding to scene
             cloud.position.set(
               Math.random() * 800 - 400,
-              500,
+              400,
               Math.random() * 500 - 450
             );
-            cloud.rotation.x = 1.16;
+            cloud.rotation.x = 0.8;
             cloud.rotation.y = -0.12;
             cloud.rotation.z = Math.random() * 360;
             cloud.material.opacity = 0.6;
@@ -120,23 +136,25 @@
             scene.add(cloud);
           }
           animate();
+
+          // Resize when changing the browser size
           window.addEventListener("resize", onResize, false);
           function onResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
           }
-          document.addEventListener("keydown", onDocumentKeyDown, false);
-          function onDocumentKeyDown(event) {
-            var keyCode = event.which;
-            if (keyCode == 40) {
-              rainCount -= 100;
-              console.log("pressed");
-            }
-            if (keyCode == 38) {
-              rainCount += 100;
-            }
-          }
+          // document.addEventListener("keydown", onDocumentKeyDown, false);
+          // function onDocumentKeyDown(event) {
+          //   var keyCode = event.which;
+          //   if (keyCode == 40) {
+          //     rainCount -= 100;
+          //     console.log("pressed");
+          //   }
+          //   if (keyCode == 38) {
+          //     rainCount += 100;
+          //   }
+          // }
         });
       }
       function animate() {
@@ -160,7 +178,7 @@
               300 + Math.random() * 200,
               100
             );
-          flash.power = 50 + Math.random() * 500;
+          flash.power = 50 + Math.random() * 300;
         }
 
         renderer.render(scene, camera);
