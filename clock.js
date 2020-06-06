@@ -26,7 +26,6 @@ function updateTime() {
   var lastSeconds = last.getSeconds().toString();
   var nowSeconds = now.getSeconds().toString();
   if (lastSeconds !== nowSeconds) {
-    //tick()
     updateContainer(secondsContainer, nowSeconds);
   }
 
@@ -56,7 +55,6 @@ function updateContainer(container, newTime) {
 }
 
 function updateNumber(element, number) {
-  //element.lastElementChild.textContent = number
   var second = element.lastElementChild.cloneNode(true);
   second.textContent = number;
 
