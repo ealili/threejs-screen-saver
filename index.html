@@ -111,7 +111,7 @@
           });
 
           // Add cloud
-          for (let p = 0; p < 25; p++) {
+          for (let p = 0; p < 100; p++) {
             let cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
             // Positioning the cloud randomly, setting rotation and adding to scene
             cloud.position.set(
@@ -123,7 +123,7 @@
             cloud.rotation.y = -0.12;
             cloud.rotation.z = Math.random() * 360;
             cloud.material.opacity = 0.6;
-            cloudParticles.push(cloud);
+            cloudParticles.push(cloud); // push to array for animation and rotation use
             scene.add(cloud);
           }
           animate();
@@ -149,8 +149,9 @@
         });
       }
       function animate() {
+        // rotate clouds one by one
         cloudParticles.forEach((p) => {
-          p.rotation.z -= 0.002;
+          p.rotation.z -= 0.0007;
         });
         rainGeo.vertices.forEach((p) => {
           p.velocity -= 0.1 + Math.random() * 0.1;
