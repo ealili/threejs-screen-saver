@@ -32,6 +32,7 @@ function updateTime() {
 function updateContainer(container, newTime) {
   var time = newTime.split("");
 
+  // Put zero in front if there is the lenght is only one
   if (time.length === 1) {
     time.unshift("0");
   }
@@ -62,4 +63,5 @@ function updateNumber(element, number) {
   }, 990);
 }
 
+// update time each 100 miliseconds
 setInterval(updateTime, 100);
