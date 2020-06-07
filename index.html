@@ -135,17 +135,6 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
           }
-          // document.addEventListener("keydown", onDocumentKeyDown, false);
-          // function onDocumentKeyDown(event) {
-          //   var keyCode = event.which;
-          //   if (keyCode == 40) {
-          //     rainCount -= 100;
-          //     console.log("pressed");
-          //   }
-          //   if (keyCode == 38) {
-          //     rainCount += 100;
-          //   }
-          // }
         });
       }
       function animate() {
@@ -162,7 +151,7 @@
           }
         });
         rainGeo.verticesNeedUpdate = true;
-        // rain.rotation.y += 0.002;
+        // add flash from the PointLight createad earlier
         if (Math.random() > 0.93 || flash.power > 100) {
           if (flash.power < 100)
             flash.position.set(
